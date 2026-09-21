@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Carteira Bento — organize sua vida financeira em um só lugar.">
+  <title>Carteira Bento</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a href="#" class="brand" data-section-jump="dashboard">
+        <div class="brand-mark">B</div>
+        <div>
+          <strong>Carteira Bento</strong>
+          <span>Finanças pessoais</span>
+        </div>
+      </a>
+
+      <div class="profile-picker"><label for="profileSelect">Carteira em uso</label><select id="profileSelect"></select><button class="ghost full" id="addProfileBtn">+ Adicionar CPF ou CNPJ</button><button class="ghost full" id="editProfileBtn">Editar perfil</button></div>
+      <nav class="nav">
+        <button class="nav-item active" data-section="dashboard">⌂ <span>Visão geral</span></button>
+        <button class="nav-item" data-section="transactions">↕ <span>Lançamentos</span></button>
+        <button class="nav-item" data-section="assets">◫ <span>Patrimônio</span></button>
+        <button class="nav-item" data-section="investments">↗ <span>Investimentos</span></button>
+        <button class="nav-item" data-section="goals">◎ <span>Metas</span></button>
+        <button class="nav-item" data-section="taxes">§ <span>Meus tributos</span></button>
+        <button class="nav-item" data-section="learn">? <span>Aprender com o Sebrae</span></button>
+      </nav>
+      <button class="ghost full" id="advancedBtn">Mostrar todas as funções</button>
+
+      <div class="sidebar-card">
+        <span class="eyebrow">DADOS LOCAIS</span>
+        <p>Seus registros ficam salvos neste navegador.</p>
+        <button class="ghost full" id="exportBtn">Exportar backup</button>
+        <label class="ghost full file-label">
+          Importar backup
+          <input type="file" id="importInput" accept=".json">
+        </label>
+      </div>
+
+      <div class="sidebar-footer">
+        <span class="status-dot"></span>
+        <small>Versão pública • sem login</small>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">☰</button>
+          <div>
+            <p class="eyebrow">PAINEL FINANCEIRO</p>
+            <h1 id="pageTitle">Visão geral</h1>
+          </div>
+        </div>
+        <div class="top-actions">
+          <button class="ghost" id="clearBtn">Apagar dados</button>
+          
+          <button class="primary" id="newEntryBtn">+ Novo lançamento</button>
+        </div>
+      </header>
+
+      <section id="dashboard" class="content-section active">
+        <article class="panel welcome-panel" id="setupPanel"><h2>Como você quer começar?</h2><p>Escolha CPF ou CNPJ. Depois, informe apenas o básico. Os registros existentes permanecerão nesta carteira.</p><button class="primary" id="setupCpf">Meu CPF</button> <button class="secondary" id="setupCnpj">Meu CNPJ</button></article>
+        <p id="profileSummary" class="profile-summary"></p>
+        <div class="hero">
+          <div>
+            <p class="eyebrow">BEM-VINDO À SUA CARTEIRA</p>
+            <h2>Seu dinheiro, finalmente em um só lugar.</h2>
+            <p>Cadastre o que entra, o que sai, o que você possui e onde quer chegar.</p>
+          </div>
+          <div class="hero-badge">
+            <span>Patrimônio líquido</span>
+            <strong id="heroNetWorth">R$ 0,00</strong>
+            <small id="heroTrend">Comece adicionando seus dados</small>
+          </div>
+        </div>
+
+        <div class="metrics-grid">
+          <article class="metric-card"><div class="metric-icon income">↗</div><div><span>Receitas do mês</span><strong id="incomeMetric">R$ 0,00</strong><small>Entradas registradas</small></div></article>
+          <article class="metric-card"><div class="metric-icon expense">↘</div><div><span>Despesas do mês</span><strong id="expenseMetric">R$ 0,00</strong><small>Saídas registradas</small></div></article>
+          <article class="metric-card"><div class="metric-icon passive">◆</div><div><span>Renda passiva</span><strong id="passiveMetric">R$ 0,00</strong><small>Dividendos, juros e aluguéis</small></div></article>
+          <article class="metric-card"><div class="metric-icon balance">◉</div><div><span>Saldo do mês</span><strong id="balanceMetric">R$ 0,00</strong><small>Receitas menos despesas</small></div></article>
+        </div>
+
+        <div class="benefit-strip">
+          <div>
+            <span class="eyebrow">BENEFÍCIOS</span>
+            <strong>Saldo de vale-refeição</strong>
+          </div>
+          <div class="benefit-value" id="vrBalance">R$ 0,00</div>
+          <small id="vrSummary">Registre o crédito como receita e as refeições como despesas usando “Vale-refeição”.</small>
+        </div>
+
+        <div class="dashboard-grid">
+          <article class="panel chart-panel">
+            <div class="panel-header">
+              <div><span class="eyebrow">FLUXO FINANCEIRO</span><h3>Receitas e despesas</h3></div>
+              <select id="chartPeriod"><option value="6">Últimos 6 meses</option><option value="12">Últimos 12 meses</option></select>
+            </div>
+            <div class="chart-wrap"><canvas id="cashflowChart"></canvas></div>
+          </article>
+
+          <article class="panel health-panel">
+            <div class="panel-header">
+              <div><span class="eyebrow">SAÚDE FINANCEIRA</span><h3>Seu momento</h3></div>
+              <span class="score" id="healthScore">0</span>
+            </div>
+            <div class="health-ring" id="healthRing"><div><strong id="healthPercent">0%</strong><span>organizado</span></div></div>
+            <p id="healthMessage">Adicione seus dados para receber uma leitura inicial.</p>
+          </article>
+
+          <article class="panel">
+            <div class="panel-header">
+              <div><span class="eyebrow">ÚLTIMOS LANÇAMENTOS</span><h3>Movimentações recentes</h3></div>
+              <button class="text-btn" data-section-jump="transactions">Ver todos</button>
+            </div>
+            <div class="list" id="recentTransactions"></div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-header">
+              <div><span class="eyebrow">COMPOSIÇÃO</span><h3>Seu patrimônio</h3></div>
+              <button class="text-btn" data-section-jump="assets">Gerenciar</button>
+            </div>
+            <div class="asset-summary" id="assetSummary"></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="transactions" class="content-section">
+        <div class="section-toolbar">
+          <div><p class="eyebrow">MOVIMENTAÇÕES</p><h2>Receitas e despesas</h2></div>
+          <div class="filters">
+            <select id="transactionFilter">
+              <option value="all">Todos</option>
+              <option value="income">Receitas</option>
+              <option value="expense">Despesas</option>
+              <option value="passive">Renda passiva</option>
+            </select>
+            <button class="primary" id="newEntryBtn2">+ Adicionar</button>
+          </div>
+        </div>
+        <article class="panel">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Descrição</th><th>Categoria</th><th>Data</th><th>Tipo</th><th>Valor</th><th></th></tr></thead>
+              <tbody id="transactionsTable"></tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+
+      <section id="assets" class="content-section">
+        <div class="section-toolbar">
+          <div><p class="eyebrow">PATRIMÔNIO</p><h2>O que você possui e deve</h2></div>
+          <button class="primary" id="newAssetBtn">+ Adicionar item</button>
+        </div>
+        <div class="metrics-grid compact">
+          <article class="metric-card"><div><span>Bens e ativos</span><strong id="totalAssets">R$ 0,00</strong></div></article>
+          <article class="metric-card"><div><span>Dívidas</span><strong id="totalDebts">R$ 0,00</strong></div></article>
+          <article class="metric-card"><div><span>Patrimônio líquido</span><strong id="netWorthMetric">R$ 0,00</strong></div></article>
+        </div>
+        <div class="cards-grid" id="assetsGrid"></div>
+      </section>
+
+      <section id="investments" class="content-section">
+        <div class="section-toolbar">
+          <div><p class="eyebrow">INVESTIMENTOS</p><h2>Carteira e renda passiva</h2></div>
+          <button class="primary" id="newInvestmentBtn">+ Adicionar investimento</button>
+        </div>
+        <div class="metrics-grid compact">
+          <article class="metric-card"><div><span>Total investido</span><strong id="investedTotal">R$ 0,00</strong></div></article>
+          <article class="metric-card"><div><span>Renda passiva mensal</span><strong id="passiveTotal">R$ 0,00</strong></div></article>
+          <article class="metric-card"><div><span>Yield mensal estimado</span><strong id="yieldMetric">0,00%</strong></div></article>
+        </div>
+        <div class="cards-grid" id="investmentsGrid"></div>
+      </section>
+
+      <section id="goals" class="content-section">
+        <div class="section-toolbar">
+          <div><p class="eyebrow">METAS</p><h2>Transforme planos em números</h2></div>
+          <button class="primary" id="newGoalBtn">+ Criar meta</button>
+        </div>
+        <div class="cards-grid goals-grid" id="goalsGrid"></div>
+      </section>
+      <section id="taxes" class="content-section"><div class="section-toolbar"><div><p class="eyebrow">ENTENDER E CONFERIR</p><h2>Meus tributos</h2></div><button class="primary" id="newTaxBtn">+ Registrar tributo</button></div>
+      <article class="panel"><p>Registre valores apurados, retidos ou pagos e confira os caminhos oficiais de recuperação. Nesta etapa, os valores são informados por você; não há cálculo automático de impostos nem envio de pedidos.</p><p>Restituição: devolução de um valor. Compensação: uso de crédito para quitar um débito permitido. Dedução: redução admitida no cálculo do imposto ou de sua base; não é um crédito para saque.</p><p>Os registros desta tela são para conferência e não alteram seu saldo. Pagamentos e recebimentos efetivos devem ser registrados uma única vez em Lançamentos.</p></article>
+      <div id="taxRoutes" class="cards-grid tax-routes"></div><div id="taxRecords" class="cards-grid"></div></section>
+      <section id="learn" class="content-section"><div class="section-toolbar"><h2>Aprender com o Sebrae</h2></div><div class="cards-grid">
+      <article class="panel"><h3>Contas pessoais e da empresa</h3><p>Mantenha registros separados para acompanhar as despesas de cada carteira.</p><a href="https://sebrae.com.br/sites/PortalSebrae/ufs/sp/cursos_eventos/separe-suas-contas-pessoais-das-contas-da-sua-empresa,e402eabb60719510VgnVCM1000004c00210aRCRD" target="_blank" rel="noopener noreferrer">Ler no Sebrae</a></article>
+      <article class="panel"><h3>Fluxo de caixa</h3><p>Acompanhe entradas e saídas por período para planejar os compromissos do negócio.</p><a href="https://sebrae.com.br/sites/PortalSebrae/ufs/ap/artigos/fluxo-de-caixa,a8751947e93c9410VgnVCM2000003c74010aRCRD" target="_blank" rel="noopener noreferrer">Ler no Sebrae</a></article>
+      </div><p>Conteúdo educativo: Sebrae. Regras e procedimentos tributários: órgãos oficiais. Referências consultadas em 21/09/2026.</p></section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <div><p class="eyebrow" id="modalEyebrow">NOVO REGISTRO</p><h2 id="modalTitle">Adicionar</h2></div>
+        <button class="close-btn" id="closeModal">×</button>
+      </div>
+      <form id="dynamicForm"></form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/transactions.js"></script>
+  <script src="js/assets.js"></script>
+  <script src="js/investments.js"></script>
+  <script src="js/goals.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/profiles.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
+
