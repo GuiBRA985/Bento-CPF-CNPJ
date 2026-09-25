@@ -34,8 +34,9 @@
       <button class="ghost full" id="advancedBtn">Mostrar todas as funções</button>
 
       <div class="sidebar-card">
-        <span class="eyebrow">DADOS LOCAIS</span>
-        <p>Seus registros ficam salvos neste navegador.</p>
+        <span class="eyebrow">MODO DEMONSTRAÇÃO</span>
+        <p>Carregue uma vida financeira fictícia completa.</p>
+        <button class="primary full" id="demoBtn">Carregar milionário</button>
         <button class="ghost full" id="exportBtn">Exportar backup</button>
         <label class="ghost full file-label">
           Importar backup
@@ -66,6 +67,7 @@
       </header>
 
       <section id="dashboard" class="content-section active">
+        <div class="demo-notice" id="demoNotice"><div><strong>DEMONSTRAÇÃO • DADOS FICTÍCIOS</strong><span>Explore os perfis CPF e CNPJ de Augusto Valença pelo seletor “Carteira em uso”.</span></div><button class="ghost" id="restoreDemoBtn">Restaurar demonstração</button></div>
         <article class="panel welcome-panel" id="setupPanel"><h2>Como você quer começar?</h2><p>Escolha CPF ou CNPJ. Depois, informe apenas o básico. Os registros existentes permanecerão nesta carteira.</p><button class="primary" id="setupCpf">Meu CPF</button> <button class="secondary" id="setupCnpj">Meu CNPJ</button></article>
         <p id="profileSummary" class="profile-summary"></p>
         <div class="hero">
@@ -96,6 +98,8 @@
           <div class="benefit-value" id="vrBalance">R$ 0,00</div>
           <small id="vrSummary">Registre o crédito como receita e as refeições como despesas usando “Vale-refeição”.</small>
         </div>
+
+        <div class="demo-grid" id="demoOverview"></div>
 
         <div class="dashboard-grid">
           <article class="panel chart-panel">
@@ -212,6 +216,7 @@
   <div class="toast" id="toast"></div>
 
   <script src="js/storage.js"></script>
+  <script src="js/demo-data.js"></script>
   <script src="js/utils.js"></script>
   <script src="js/ui.js"></script>
   <script src="js/transactions.js"></script>
@@ -223,4 +228,3 @@
   <script src="js/app.js"></script>
 </body>
 </html>
-

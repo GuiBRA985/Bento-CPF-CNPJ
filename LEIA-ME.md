@@ -12,6 +12,8 @@ Atualização da versão existente em GuiBRA985/Bento-Carteira, preparada em 21/
 
 ## Funcionamento
 
+- Modo demonstração com dois perfis fictícios: CPF milionário e sua holding CNPJ, com histórico desde 01/01/2026.
+
 - Entrada por CPF (CLT, autônomo, ambos, aposentado ou outra situação) ou CNPJ (faturamento mensal de referência e regime informado).
 - O faturamento cadastral não cria lançamentos e não determina automaticamente o regime.
 - Modo simples inicial; o botão **Mostrar todas as funções** apresenta patrimônio, investimentos e metas. Perfis migrados que já têm esses dados começam com as funções completas visíveis.
