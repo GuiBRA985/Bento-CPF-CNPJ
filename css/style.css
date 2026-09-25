@@ -55,5 +55,14 @@ button.full,.file-label.full{width:100%;background:transparent;color:#fff;border
   .benefit-strip{grid-template-columns:1fr}
 }
 
+.sidebar-card button.primary.full{background:var(--green);border-color:var(--green)}
+.demo-notice{display:none;align-items:center;justify-content:space-between;gap:18px;background:#fff8e7;border:1px solid #f2d999;border-radius:16px;padding:14px 18px;margin-bottom:16px;color:#76520a}
+.demo-notice strong,.demo-notice span{display:block}.demo-notice strong{font-size:12px;letter-spacing:.08em}.demo-notice span{font-size:12px;margin-top:4px;color:#947126}
+.demo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:0 0 18px}.demo-grid:empty{display:none}
+.demo-panel{background:#fff;border:1px solid #edf0f4;border-radius:18px;padding:19px;box-shadow:0 8px 24px rgba(29,45,67,.05)}.demo-panel>strong{display:block;font:800 25px Manrope;margin:8px 0 13px}
+.demo-line{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid #edf0f4;font-size:11px}.demo-line span{color:#68778a}.demo-line small{display:block;color:#9aa5b3;margin-top:3px}.demo-line b{white-space:nowrap}
+@media(max-width:1100px){.demo-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.demo-notice{align-items:flex-start;flex-direction:column}.demo-notice button{width:100%}}
+
 
 [hidden]{display:none!important}.sidebar{overflow-y:auto}.profile-picker{margin-bottom:18px}.profile-picker label{display:block;font-size:12px;color:#b9c6d5;margin-bottom:8px}.profile-picker select{width:100%;padding:10px;border-radius:10px;background:#fff;color:#122033}.sidebar-card{margin-top:24px}.welcome-panel{margin-bottom:18px}.profile-summary{font-weight:600;color:#536577}.tax-routes{margin:18px 0}.panel p{line-height:1.6}.panel a{color:#0b7651;font-weight:600}.tax-routes .panel{overflow-wrap:anywhere}body.simple .hero-badge,body.simple .health-panel,body.simple .dashboard-grid>.panel:last-child,body.simple .metric-card:has(#passiveMetric){display:none}body.simple .metrics-grid{grid-template-columns:repeat(3,1fr)}body.simple .hero{padding:26px}#advancedBtn{margin:16px 0}#taxRecords{margin-top:18px}.profile-dialog{border:0;border-radius:20px;padding:24px;width:min(540px,calc(100% - 32px));max-height:90vh;overflow:auto}.profile-dialog::backdrop{background:#051019aa}.profile-dialog h2{margin-top:0}.profile-dialog input,.profile-dialog select{width:100%}.profile-dialog p{line-height:1.5}.profile-dialog .form-field{margin:14px 0}@media(max-width:600px){body.simple .metrics-grid{grid-template-columns:1fr}.sidebar{width:280px}.top-actions{justify-content:flex-start}.hero-badge{min-width:0}}
