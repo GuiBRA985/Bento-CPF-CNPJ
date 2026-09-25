@@ -1,5 +1,6 @@
 function renderDashboardMetrics(){
   const t=getTotals();
+  renderDemoOverview();
   $('#incomeMetric').textContent=money(t.income);
   $('#expenseMetric').textContent=money(t.expense);
   $('#passiveMetric').textContent=money(t.passive);
@@ -24,6 +25,18 @@ function renderDashboardMetrics(){
     ? `${money(vrCredits)} recebidos • ${money(vrExpenses)} utilizados`
     : 'Registre o crédito como receita e as refeições como despesas usando “Vale-refeição”.';
 }
+
+function renderDemoOverview(){
+  $('#demoNotice').style.display=state.demo?'flex':'none';
+  const el=$('#demoOverview');
+  if(!state.demo){el.innerHTML='';return;}
+  const accounts=(state.accounts||[]).reduce((s,a)=>s+Number(a.balance),0);
+  const invoices=(state.cards||[]).reduce((s,c)=>s+Number(c.invoice),0);
+  const obligations=(state.obligations||[]).reduce((s,o)=>s+Number(o.value),0);
+  el.innerHTML=`<article class="demo-panel"><span class="eyebrow">SALDOS DISPONÍVEIS</span><strong>${money(accounts)}</strong>${(state.accounts||[]).map(a=>`<div class="demo-line"><span>${escapeHtml(a.name)}</span><b>${money(a.balance)}</b></div>`).join('')}</article>
+  <article class="demo-panel"><span class="eyebrow">CARTÕES DE CRÉDITO</span><strong>${money(invoices)}</strong>${(state.cards||[]).map(c=>`<div class="demo-line"><span>${escapeHtml(c.name)}<small>Limite ${money(c.limit)} • vence ${c.due}</small></span><b>${money(c.invoice)}</b></div>`).join('')||'<div class="demo-line"><span>Nenhum cartão nesta carteira</span></div>'}</article>
+  <article class="demo-panel"><span class="eyebrow">COMPROMISSOS AGENDADOS</span><strong>${money(obligations)}</strong>${(state.obligations||[]).map(o=>`<div class="demo-line"><span>${escapeHtml(o.name)}<small>${escapeHtml(o.status)} • ${o.due}</small></span><b>${money(o.value)}</b></div>`).join('')}</article>`;
+}
 function renderHealth(){
   const t=getTotals();let score=0;
   if(state.transactions.length)score+=25;if(state.assets.length)score+=20;if(state.investments.length)score+=20;if(state.goals.length)score+=15;if(t.balance>0)score+=20;
@@ -47,4 +60,3 @@ function drawChart(){
 }
 function bar(ctx,x,y,w,h,color){if(h<=0)return;ctx.fillStyle=color;ctx.beginPath();ctx.roundRect(x,y,w,h,5);ctx.fill()}
 function compactMoney(v){if(v>=1000000)return'R$ '+(v/1000000).toFixed(1)+' mi';if(v>=1000)return'R$ '+(v/1000).toFixed(0)+' mil';return'R$ '+v.toFixed(0)}
-

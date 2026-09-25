@@ -6,6 +6,10 @@ const defaultData={
   investments:[],
   goals:[],
   taxes:[],
+  demo:false,
+  accounts:[],
+  cards:[],
+  obligations:[],
   preferences:{
     categories:{
       income:['Salário','Vale-refeição','Vale-alimentação','Freelance','Aluguel recebido','Outras receitas'],
@@ -138,4 +142,3 @@ function importBackup(file){
   };
   reader.readAsText(file);
 }
-
